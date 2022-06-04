@@ -1,3 +1,16 @@
+--TABLE TO HOLD AGE DATA--
+CREATE TABLE DataProjects.dbo.AgeTable (
+Team_Name varchar(100),
+ChampAge float,
+DiffToCHAgeAvg float,
+FirstPLAge float,
+DiffToPL1PossAvg float,
+SecondPLAge float,
+DiffToPL2AgeAvg float)
+
+--STATEMENT USED WITH EACH SELECT TO INSERT VALUES INTO TABLE--
+INSERT INTO DataProjects.dbo.AgeTable(Team_Name, ChampAge, FirstPLAge, SecondPLAge) 
+
 --FINDING AVG AGE OF BRI AND HUDD FROM SEASONS--
 SELECT HB1617.Squad,
 HB1617.Age AS CH_Age,
@@ -32,22 +45,6 @@ INNER JOIN DataProjects.dbo.SUFC_PL_STATS_2021$ AS SU2021 ON SU1819.Squad = SU20
 WHERE SU1819.Squad = 'Sheffield Utd'
 GROUP BY SU1819.Squad, SU1819.Age, SU1920.Age, SU2021.Age
 
---TEMP TABLE WILL NEED TO BE REMADE EACH SESSION--
-CREATE TABLE DataProjects.dbo.AgeTable (
-Team_Name varchar(100),
-ChampAge float,
-DiffToCHAgeAvg float,
-FirstPLAge float,
-DiffToPL1PossAvg float,
-SecondPLAge float,
-DiffToPL2AgeAvg float)
-
---STATEMENT USED WITH EACH SELECT TO INSERT VALUES INTO TABLE--
-INSERT INTO DataProjects.dbo.AgeTable(Team_Name, ChampAge, FirstPLAge, SecondPLAge) 
-
---VIEW TABLE RESULTS--
-SELECT * FROM DataProjects.dbo.AgeTable
-
 --INSERTING DIFFERENCES TO AVG IN EACH SEASON--
 --CHAMPIONSHIP SEASON--
 UPDATE DataProjects.dbo.AgeTable
@@ -56,7 +53,7 @@ WHEN Team_Name = 'Brighton' OR Team_Name = 'Huddersfield' THEN (SELECT (ROUND(Ch
 WHEN Team_Name = 'Leeds United' THEN (SELECT (ROUND(ChampAge - ((AVG(CAST (Age as float)))), 2)) FROM DataProjects.dbo.LUFC_CH_STATS_1920$)
 WHEN Team_Name = 'Sheffield Utd' THEN (SELECT (ROUND(ChampAge - ((AVG(CAST (Age as float)))), 2)) FROM DataProjects.dbo.SUFC_CH_STATS_1819$)
 END
---FIRST SEASON--
+--FIRST PREM SEASON--
 UPDATE DataProjects.dbo.AgeTable
 SET DiffToPL1PossAvg = CASE
 WHEN Team_Name = 'Brighton' OR Team_Name = 'Huddersfield' THEN (SELECT (ROUND(FirstPLAge - ((AVG(CAST (Age as float)))), 2)) FROM DataProjects.dbo.HUDD_BRI_PL_STATS_1718)
@@ -70,3 +67,6 @@ WHEN Team_Name = 'Brighton' OR Team_Name = 'Huddersfield' THEN (SELECT (ROUND(Se
 WHEN Team_Name = 'Leeds United' THEN (SELECT (ROUND(SecondPLAge - ((AVG(CAST (Age as float)))), 2)) FROM DataProjects.dbo.LUFC_PL_STATS_2122$)
 WHEN Team_Name = 'Sheffield Utd' THEN (SELECT (ROUND(SecondPLAge - ((AVG(CAST (Age as float)))), 2)) FROM DataProjects.dbo.SUFC_PL_STATS_2021$)
 END
+
+--VIEW TABLE RESULTS--
+SELECT * FROM DataProjects.dbo.AgeTable
