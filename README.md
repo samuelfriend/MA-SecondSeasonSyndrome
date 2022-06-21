@@ -2,7 +2,7 @@
 This is the repository for the SQL queries that I created, to simplify, organise and easily approach the data at hand.
 The various files create tables that were easy to implement into Power BI, Tableau and more for visualisation.
 
-Medium Article - https://medium.com/@samuelfriend/second-season-syndrome-why-didnt-the-seagulls-suffer-8ed6ffbb5644)
+Medium Article - https://medium.com/@samuelfriend/second-season-syndrome-why-didnt-the-seagulls-suffer-8ed6ffbb5644
 
 **files**
   - AgeTableQueries.sql
@@ -13,4 +13,4 @@ Medium Article - https://medium.com/@samuelfriend/second-season-syndrome-why-did
 Medium Article - https://medium.com/@samuelfriend/can-yves-bissouma-be-the-cure-for-tottenhams-trophy-tribulations-c398dfc08c68
 
 **files**
-  - YvesPerformanceData.sql
+  - YvesSQL.sql
